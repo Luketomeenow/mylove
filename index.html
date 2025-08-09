@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Memory Lane Map — Maxine × Luke</title>
+    <meta name="description" content="A romantic, playful 10-scene memory map for Maxine and Luke." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="preloader">
+      <div class="preloader-inner">
+        <div class="logo">Luke ❤ Maxine</div>
+        <div class="spinner"></div>
+        <div class="hint">loading memories…</div>
+        <button id="skipLoad" class="btn" style="margin-top:10px">Skip</button>
+      </div>
+    </div>
+
+    <main id="app" class="hidden">
+      <header class="app-header">
+        <div class="title">
+          <span class="eyebrow">Memory Lane Map</span>
+          <h1>Maxine × Luke</h1>
+        </div>
+        <div class="controls">
+          <button id="audioToggle" class="btn">Play song</button>
+          <button id="sparkle" class="btn btn-ghost" title="confetti test">✨</button>
+        </div>
+      </header>
+
+      <section class="map">
+        <svg id="timeline" viewBox="0 0 1000 520" preserveAspectRatio="xMidYMid meet" aria-label="relationship timeline">
+          <defs>
+            <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#9b7e5a" />
+              <stop offset="100%" stop-color="#6d6d6d" />
+            </linearGradient>
+            <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.25" />
+            </filter>
+          </defs>
+          <path id="path" d="M40,460 C200,420 200,320 360,300 C540,280 540,200 720,180 C820,170 880,120 960,80" fill="none" stroke="url(#grad)" stroke-width="6" stroke-linecap="round"/>
+          <!-- Node circles (10) positioned along a nice arc; exact positions adjusted for aesthetics -->
+          <g id="nodes" filter="url(#shadow)">
+            <circle class="node" data-index="0" cx="80" cy="450" r="16" />
+            <circle class="node" data-index="1" cx="170" cy="420" r="16" />
+            <circle class="node" data-index="2" cx="260" cy="360" r="16" />
+            <circle class="node" data-index="3" cx="340" cy="320" r="16" />
+            <circle class="node" data-index="4" cx="420" cy="300" r="16" />
+            <circle class="node" data-index="5" cx="520" cy="280" r="16" />
+            <circle class="node" data-index="6" cx="620" cy="230" r="16" />
+            <circle class="node" data-index="7" cx="720" cy="190" r="16" />
+            <circle class="node" data-index="8" cx="840" cy="150" r="16" />
+            <circle class="node" data-index="9" cx="950" cy="95" r="16" />
+          </g>
+          <g id="labels" style="pointer-events:none"></g>
+        </svg>
+
+        <div class="legend">
+          <div class="legend-item"><span class="dot"></span><span>Tap each node</span></div>
+          <div class="legend-item"><span class="dot dot-secondary"></span><span>Mini-interaction</span></div>
+        </div>
+      </section>
+
+      <footer class="app-footer">
+        <div class="petnames">Dalmi × Luther</div>
+      </footer>
+    </main>
+
+    <!-- Welcome overlay -->
+    <div id="welcome" class="welcome hidden" aria-hidden="true">
+      <div class="welcome-card">
+        <div class="welcome-title">Hi Maxine ✨</div>
+        <div class="welcome-text">Welcome to our Memory Lane. Hold my hand—let’s relive our favorites.</div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card" role="document">
+        <button class="modal-close" aria-label="close">×</button>
+        <div class="modal-media">
+          <img id="modalImage" alt="memory" />
+        </div>
+        <div class="modal-body">
+          <h2 id="modalTitle"></h2>
+          <p id="modalText"></p>
+          <div id="interaction"></div>
+          <div class="modal-actions">
+            <button class="btn" id="nextScene">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <audio id="bg-audio" src="assets/audio/song.mp3" preload="auto" loop playsinline></audio>
+
+    <script>
+      // Load libraries without creating globals that shadow window.gsap/window.confetti
+      (function(){
+        function inject(src){ var s=document.createElement('script'); s.src=src; s.defer=true; document.body.appendChild(s); }
+        inject('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js');
+        inject('https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js');
+      })();
+    </script>
+    <script>
+      // Bust aggressive caching when opened from disk or refreshed
+      (function(){
+        var s = document.createElement('script');
+        s.src = 'script.js?v=' + Date.now();
+        document.currentScript.after(s);
+      })();
+    </script>
+  </body>
+  </html>
+
+
